@@ -74,6 +74,8 @@ export default function ContactForm() {
     "Gellyball",
     "Lancée de Hache",
     "Paintball Kid's",
+    "Mölkky",
+    "Tir de Précision",
   ];
   const clientTypes = ["Particulier", "Entreprise", "Collectivité"];
 

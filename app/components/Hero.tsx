@@ -67,7 +67,7 @@ export default function Hero() {
             <div className="flex gap-8 justify-center lg:justify-start">
               <div className="text-center lg:text-left">
                 <div className="text-3xl font-black text-orange-500 mb-1">
-                  5
+                  7
                 </div>
                 <div className="text-sm text-gray-600 font-medium">
                   Activités
