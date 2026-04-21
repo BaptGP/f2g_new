@@ -16,44 +16,44 @@ interface PricingPlan {
 const pricingPlans: PricingPlan[] = [
   {
     type: "Particulier",
-    title: "Forfait Anniversaire",
-    subtitle: "Pour vos événements privés",
+    title: "Triathlon Anniversaire",
+    subtitle: "3 épreuves pour une fête inoubliable",
     color: "from-orange-500 to-red-700",
-    includedActivities: ["Gellyball", "Jeu de Cornhole", "Paintball Kid's"],
-    optionalActivities: ["Archery Tag", "Lancée de Hache"],
+    includedActivities: ["Gellyball", "Mölkky", "Paintball Kid's"],
+    optionalActivities: ["Archery Tag", "Tir de Précision", "Jeu de Cornhole"],
     features: [
-      "Jusqu'à 20 personnes",
-      "Durée : 2h",
-      "Animateur inclus",
-      "Matériel fourni",
+      "Jusqu'à 20 personnes (4-5 équipes)",
+      "Durée : 2h - Rotation entre les ateliers",
+      "Animateur + chrono + classement",
+      "Matériel complet fourni",
     ],
   },
   {
     type: "Entreprise",
-    title: "Forfait Team Building",
-    subtitle: "Renforcez la cohésion d'équipe",
+    title: "Triathlon Team Building",
+    subtitle: "Défi sportif et stratégique par équipes",
     color: "from-blue-500 to-blue-700",
-    includedActivities: ["Archery Tag", "Gellyball", "Lancée de Hache"],
-    optionalActivities: ["Jeu de Cornhole", "Paintball Kid's"],
+    includedActivities: ["Archery Tag", "Tir de Précision", "Lancée de Hache"],
+    optionalActivities: ["Gellyball", "Mölkky", "Jeu de Cornhole"],
     features: [
-      "Jusqu'à 50 personnes",
-      "Durée : 3h",
-      "2 animateurs inclus",
-      "Débriefing team building",
+      "Jusqu'à 50 personnes (8-10 équipes)",
+      "Durée : 3h - Circuit chrono",
+      "2 animateurs + feuille de score",
+      "Podium et débriefing final",
     ],
   },
   {
     type: "Collectivité",
-    title: "Forfait Centre de Loisirs",
-    subtitle: "Animation pour tous les âges",
+    title: "Triathlon Jeunes",
+    subtitle: "Parcours multi-activités adapté",
     color: "from-yellow-400 to-yellow-600",
-    includedActivities: ["Paintball Kid's", "Jeu de Cornhole", "Gellyball"],
-    optionalActivities: ["Archery Tag", "Lancée de Hache"],
+    includedActivities: ["Paintball Kid's", "Mölkky", "Gellyball"],
+    optionalActivities: ["Archery Tag", "Jeu de Cornhole", "Tir de Précision"],
     features: [
-      "Groupes adaptés par âge",
-      "Durée flexible",
-      "Animateurs diplômés",
-      "Sécurité renforcée",
+      "Groupes par âge - Rotation organisée",
+      "Durée flexible selon effectif",
+      "Animateurs diplômés + encadrement",
+      "Sécurité renforcée sur chaque atelier",
     ],
   },
 ];
@@ -69,13 +69,13 @@ export default function PricingSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Nos Forfaits
+            Nos Forfaits Triathlon
           </h2>
           <p className="text-xl text-gray-600 mb-2">
-            3 activités au choix incluses dans chaque forfait
+            Un parcours de 3 activités à enchaîner par équipe
           </p>
           <p className="text-lg text-gray-500">
-            + activités supplémentaires disponibles
+            Compétition, chrono, classement... L&apos;esprit triathlon !
           </p>
         </motion.div>
 
@@ -99,7 +99,7 @@ export default function PricingSection() {
                 <div className="mb-6">
                   <h4 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
                     <Check className="text-green-500 mr-2" size={24} />3
-                    Activités Incluses
+                    Épreuves du Parcours
                   </h4>
                   <ul className="space-y-3">
                     {plan.includedActivities.map((activity) => (
@@ -162,13 +162,13 @@ export default function PricingSection() {
         >
           <p className="text-lg text-gray-700 mb-4">
             <span className="font-bold text-cyan-500">
-              Formule personnalisée ?
+              Triathlon sur mesure ?
             </span>{" "}
-            Nous adaptons nos forfaits à vos besoins !
+            Composez votre propre parcours de 3, 4 ou 5 épreuves !
           </p>
           <p className="text-gray-600">
-            Contactez-nous pour un devis sur mesure avec les activités de votre
-            choix.
+            Contactez-nous pour créer un circuit adapté à votre groupe et vos
+            objectifs.
           </p>
         </motion.div>
       </div>

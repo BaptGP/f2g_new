@@ -1,8 +1,18 @@
-'use client';
+"use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, Clock, MapPin, CheckCircle } from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  LucideIcon,
+  MapPin,
+  Users,
+  X,
+} from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
 interface ActivityModalProps {
   isOpen: boolean;
@@ -18,11 +28,31 @@ interface ActivityModalProps {
     duration: string;
     location: string;
     color: string;
+    image: string;
+    images: string[];
   } | null;
 }
 
-export default function ActivityModal({ isOpen, onClose, activity }: ActivityModalProps) {
+export default function ActivityModal({
+  isOpen,
+  onClose,
+  activity,
+}: ActivityModalProps) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   if (!activity) return null;
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === activity.images.length - 1 ? 0 : prev + 1,
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? activity.images.length - 1 : prev - 1,
+    );
+  };
 
   return (
     <AnimatePresence>
@@ -84,24 +114,36 @@ export default function ActivityModal({ isOpen, onClose, activity }: ActivityMod
                   <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                     <Users className="text-orange-500" size={24} />
                     <div>
-                      <div className="text-xs text-gray-500 font-medium">Participants</div>
-                      <div className="text-sm font-bold text-gray-900">{activity.participants}</div>
+                      <div className="text-xs text-gray-500 font-medium">
+                        Participants
+                      </div>
+                      <div className="text-sm font-bold text-gray-900">
+                        {activity.participants}
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                     <Clock className="text-cyan-500" size={24} />
                     <div>
-                      <div className="text-xs text-gray-500 font-medium">Durée</div>
-                      <div className="text-sm font-bold text-gray-900">{activity.duration}</div>
+                      <div className="text-xs text-gray-500 font-medium">
+                        Durée
+                      </div>
+                      <div className="text-sm font-bold text-gray-900">
+                        {activity.duration}
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                     <MapPin className="text-purple-500" size={24} />
                     <div>
-                      <div className="text-xs text-gray-500 font-medium">Lieu</div>
-                      <div className="text-sm font-bold text-gray-900">{activity.location}</div>
+                      <div className="text-xs text-gray-500 font-medium">
+                        Lieu
+                      </div>
+                      <div className="text-sm font-bold text-gray-900">
+                        {activity.location}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -130,29 +172,98 @@ export default function ActivityModal({ isOpen, onClose, activity }: ActivityMod
                         transition={{ delay: index * 0.1 }}
                         className="flex items-start gap-3"
                       >
-                        <CheckCircle className="text-green-500 flex-shrink-0 mt-1" size={20} />
-                        <span className="text-gray-700 font-medium">{feature}</span>
+                        <CheckCircle
+                          className="text-green-500 flex-shrink-0 mt-1"
+                          size={20}
+                        />
+                        <span className="text-gray-700 font-medium">
+                          {feature}
+                        </span>
                       </motion.div>
                     ))}
                   </div>
                 </div>
 
-                {/* Image placeholder - à remplacer par de vraies images */}
-                <div className="mb-8">
-                  <h3 className="text-2xl font-black text-gray-900 mb-4">
-                    Galerie
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {[1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className={`${activity.color} aspect-video rounded-xl flex items-center justify-center`}
-                      >
-                        <activity.icon size={48} className="text-white/50" />
+                {activity.images && activity.images.length > 0 && (
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-black text-gray-900 mb-4">
+                      {activity.images.length > 1 ? "Galerie Photos" : "Photo"}
+                    </h3>
+
+                    {/* Image principale */}
+                    <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-lg mb-4 group">
+                      <Image
+                        src={activity.images[currentImageIndex]}
+                        alt={`${activity.title} - Photo ${currentImageIndex + 1}`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        sizes="(max-width: 768px) 100vw, 800px"
+                        className="rounded-2xl"
+                      />
+
+                      {/* Boutons de navigation si plusieurs images */}
+                      {activity.images.length > 1 && (
+                        <>
+                          <button
+                            onClick={prevImage}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                            aria-label="Image précédente"
+                          >
+                            <ChevronLeft size={24} />
+                          </button>
+                          <button
+                            onClick={nextImage}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all opacity-0 group-hover:opacity-100"
+                            aria-label="Image suivante"
+                          >
+                            <ChevronRight size={24} />
+                          </button>
+
+                          {/* Indicateur de position */}
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                            {activity.images.map((_, index) => (
+                              <button
+                                key={index}
+                                onClick={() => setCurrentImageIndex(index)}
+                                className={`w-2 h-2 rounded-full transition-all ${
+                                  index === currentImageIndex
+                                    ? "bg-white w-8"
+                                    : "bg-white/50 hover:bg-white/75"
+                                }`}
+                                aria-label={`Aller à la photo ${index + 1}`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+
+                    {/* Miniatures si plusieurs images */}
+                    {activity.images.length > 1 && (
+                      <div className="flex gap-3 overflow-x-auto pb-2">
+                        {activity.images.map((img, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentImageIndex(index)}
+                            className={`relative flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                              index === currentImageIndex
+                                ? "border-orange-500 scale-105"
+                                : "border-gray-200 hover:border-orange-300"
+                            }`}
+                          >
+                            <Image
+                              src={img}
+                              alt={`${activity.title} - Miniature ${index + 1}`}
+                              fill
+                              style={{ objectFit: "cover" }}
+                              sizes="96px"
+                            />
+                          </button>
+                        ))}
                       </div>
-                    ))}
+                    )}
                   </div>
-                </div>
+                )}
 
                 {/* CTA */}
                 <div className="flex flex-col sm:flex-row gap-4">
