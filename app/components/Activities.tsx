@@ -24,6 +24,7 @@ const activities = [
     images: [
       "/img/archery/PHOTO-2025-06-08-12-36-39-Topaz-Gigapixel-2X.jpg",
       "/img/archery/PHOTO-2025-06-08-12-33-23-Topaz-Gigapixel-2X.jpg",
+      "/img/archery/IMG_0705.jpeg",
       "/img/archery/IMG_0744.jpg",
     ],
     fullDescription:
